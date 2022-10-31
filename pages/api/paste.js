@@ -1,6 +1,10 @@
 import { server } from '../../config'
 const crypto = require("crypto")
-let pastes = {}
+let pastes = {
+    "about": {
+        content: "Hi, welcome to noted.wtf\n\nCredits:\nhttps://github.com/kognise/water.css\nhighlight.js\nnext.js"
+    }
+}
 
 export default function handler(req, res) {
     try {
@@ -21,16 +25,28 @@ export default function handler(req, res) {
                 if (pastes[req.query.id] === undefined) {
                     res.status(404).json({ error: "invalid or expired paste" })
                 }
+                else if (req.query.raw == "true") {
+                    let paste = pastes[req.query.id]
+                    if (paste === undefined) {
+                        res.status(404).json({ error: "invalid or expired paste" })
+                    }
+                    else {
+                        res.setHeaders('Content-Type', 'text/plain')
+                        res.status(200).send(paste.content)
+                    }
+                }
                 else {
                     res.status(200).json(pastes[req.query.id])
                 }
-                //res.set('Content-Type', 'text/plain')
-                //res.status(200).send(content)
+
             }
             catch (err) {
                 res.status(500).end()
                 console.log(err)
             }
+        }
+        else if (req.method === "DELETE") {
+            console.log(req)
         }
         else {
             res.status(404).send("bruh you fucking stupid or something?")
