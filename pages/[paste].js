@@ -4,7 +4,8 @@ import { server } from '../config'
 export default function Paste({ paste }) {
     let html = hljs.highlightAuto(paste.content).value
     return (
-        <>balls<hr /><pre>
+        <>
+        <a href={server}>noted.wtf</a><hr /><pre>
             <code dangerouslySetInnerHTML={{ __html: html }} />
         </pre></>
     )

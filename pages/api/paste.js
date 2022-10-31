@@ -11,7 +11,7 @@ export default function handler(req, res) {
             if (req.body.content.length > 3) {
                 pastes[id] = {
                     content: req.body.content,
-                    modkey: modkey
+                    modifykey: modkey
                 }
             }
             res.redirect(302, `${server}/${id}?key=${modkey}`)

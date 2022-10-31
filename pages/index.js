@@ -3,7 +3,7 @@ function HomePage() {
         <div>
             <title>noted</title>
             noted.wtf<hr/>
-            <form action="api/paste" method="post" target="_blank">
+            <form action="api/paste" method="post">
                 <textarea id="content" name="content" rows="20" placeholder="--put paste contents here" />
                 paste password and expiry will be implemented soon(tm)
                 <br/>
