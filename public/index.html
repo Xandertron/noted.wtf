@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>noted</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/dark.min.css">
+</head>
+
+<body>
+    <textarea id="content" name="content" rows="20" placeholder="--put paste contents here"></textarea>
+    <br>
+    Enter the password for the paste, or leave it blank for none.
+    <input id="password" maxlength="64" name="pass" type="text" placeholder="password" />
+    <br>
+    Enter the amount of hours until the paste expires, default is 24.
+    (max 168 hours, or one week)
+    <input id="expires" name="expires" type="text" placeholder="24" />
+    <br>
+    <input id="submit" name="submit" type="submit" value="Submit" />
+
+    <p>&nbsp;</p>
+</body>
+
+</html>
+
+<script>
+    const button = document.getElementById('submit');
+    button.addEventListener('click', async _ => {
+        const data = {
+            content: document.getElementById('content').value,
+            password: document.getElementById('password').value || "",
+            expires: document.getElementById('expires').value || 24
+        }
+        console.log(JSON.stringify(data))
+        try {
+            fetch('/v1/paste/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            }).then(res => res.json()).then(res => {console.log(res.link);window.location.href = res.link})
+            
+        } catch (err) {
+            console.error(`Error: ${err}`);
+        }
+    });
+</script>
