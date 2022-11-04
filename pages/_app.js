@@ -1,6 +1,6 @@
 import '../public/dark.min.css'
 import '../public/a11y-dark.min.css'
-import { GoogleAnalytics } from "nextjs-google-analytics";
+//import { GoogleAnalytics } from "nextjs-google-analytics";
 import Head from "next/head"
 // This default export is required in a new `pages/_app.js` file.
 export default function App({ Component, pageProps }) {
@@ -33,8 +33,8 @@ export default function App({ Component, pageProps }) {
 
       </Head>
 
-      <GoogleAnalytics trackPageViews />
       <Component {...pageProps} />
     </>
   )
 }
+//<GoogleAnalytics trackPageViews />
