@@ -1,7 +1,6 @@
 function HomePage() {
     return (
         <div>
-            <title>noted</title>
             noted.wtf
             <p align="right" style={{margin: "0px", display: "inline", float: "right"}}>test</p>
             <hr/>
