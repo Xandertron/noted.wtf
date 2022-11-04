@@ -9,16 +9,38 @@ let pastes = {
 export default function handler(req, res) {
     try {
         if (req.method === "POST") {
-            console.log(req.body)
             let id = crypto.randomBytes(4).toString("base64url")
             let modkey = crypto.randomBytes(10).toString("base64url")
-            if (req.body.content.length > 3) {
-                pastes[id] = {
-                    content: req.body.content,
-                    modifykey: modkey
+            if (req.body.content.length > 5) {
+                let paste
+                if (pastes[req.query.id] === undefined) {
+                    paste = pastes[id] = {
+                        content: req.body.content,
+                        modifykey: modkey,
+                        id: id,
+                        link: `${server}/${id}`
+                    }
+                }
+                else {
+                    //this probably wont happen, but if it does, just make it longer l o l
+                    let id = crypto.randomBytes(5).toString("base64url")
+                    paste = pastes[id] = {
+                        content: req.body.content,
+                        modifykey: modkey,
+                        id: id,
+                        link: server+id
+                    }
+                }
+                if (req.headers["content-type"] == "application/x-www-form-urlencoded") {
+                    res.redirect(302, `${server}/${id}?key=${modkey}`)
+                }
+                else{
+                    res.status(200).json(paste)
                 }
             }
-            res.redirect(302, `${server}/${id}?key=${modkey}`)
+            else {
+                res.status(400).json({ error: "content length must be more than 5 characters" })
+            }
         }
         else if (req.method === "GET") {
             try {

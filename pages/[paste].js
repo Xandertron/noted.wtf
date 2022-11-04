@@ -2,8 +2,11 @@ import Script from 'next/script'
 const hljs = require('highlight.js')
 const xss = require("xss")
 import { server } from '../config'
-export default function Paste({ paste }) {
 
+export default function Paste({ paste }) {
+    if (paste.content === undefined) {
+        paste = { content: "404, Paste not found!\nEither an error occured or the paste does not exist" }
+    }
     let html = hljs.highlightAuto(paste.content).value
     return (
         <>
