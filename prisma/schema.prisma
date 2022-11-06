@@ -1,0 +1,16 @@
+datasource db {
+  url = env("DATABASE_URL")
+  provider = "sqlite"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Paste {
+  id String @id @unique
+  createdAt DateTime @default(now())
+  expiresAt DateTime
+  content String
+  modifyKey String
+}

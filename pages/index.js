@@ -2,11 +2,23 @@ function HomePage() {
     return (
         <div>
             noted.wtf
-            <p align="right" style={{margin: "0px", display: "inline", float: "right"}}>test</p>
-            <hr/>
+            <p align="right" style={{ margin: "0px", display: "inline", float: "right" }}>test</p>
+            <hr />
             <form action="api/paste" method="post">
                 <textarea id="content" name="content" rows="20" minlength="5" required placeholder="--put paste contents here" />
-                paste password and expiry will be implemented soon(tm)
+                <br />
+                <label htmlFor="expires">Enter the amount of hours until the paste expires<br /> (max 168 hours / one week)</label>
+                <input
+                    type="number"
+                    id="expires"
+                    name="expires"
+                    min="0.0083"
+                    max="168"
+                    step="any"
+                    defaultValue="3"
+                    required
+                />
+                paste password will be implemented soon(tm)
                 <br />
                 <button type="submit">Submit</button>
             </form>
