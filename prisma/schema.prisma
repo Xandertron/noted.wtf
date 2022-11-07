@@ -13,4 +13,5 @@ model Paste {
   expiresAt DateTime
   content String
   modifyKey String
+  views Int @default(0)
 }

@@ -8,6 +8,24 @@ const log = new WebhookClient({ url: "https://discord.com/api/webhooks/103812159
 export default async function handler(req, res) {
     try {
         if (req.method === "POST") {
+            if (req.body.method == "delete") {
+                const paste = await db.paste.findUnique({
+                    where: {
+                        id: req.body.pasteID
+                    }
+                })
+                if (paste === null) {
+                    res.status(404).json({ error: "invalid or expired paste" })
+                }
+                if (paste.modifyKey === req.body.modifykey) {
+                    await db.paste.delete({
+                        where: {
+                            id: req.body.pasteID,
+                        }
+                    })
+                    res.redirect(302, `${server}`)
+                }
+            }
             let id = crypto.randomBytes(4).toString("base64url")
             let modkey = crypto.randomBytes(10).toString("base64url")
             if (req.body.content.length > 5) {
@@ -47,7 +65,7 @@ export default async function handler(req, res) {
                 if (paste === null) {
                     res.status(404).json({ error: "invalid or expired paste" })
                 }
-                else if (Date.now() > paste.expiresAt){
+                else if (Date.now() > paste.expiresAt) {
                     res.status(404).json({ error: "invalid or expired paste" })
                 }
                 else if (req.query.raw == "true") {
@@ -70,7 +88,28 @@ export default async function handler(req, res) {
             }
         }
         else if (req.method === "DELETE") {
-            console.log(req)
+            const paste = await db.paste.findUnique({
+                where: {
+                    id: req.body.pasteID
+                }
+            })
+            if (paste === null) {
+                res.status(404).json({ error: "invalid or expired paste" })
+            }
+            if (paste.modifyKey === req.body.modifykey) {
+                await db.paste.delete({
+                    where: {
+                        id: req.body.pasteID,
+                    }
+                })
+                if (req.headers["content-type"] == "application/x-www-form-urlencoded") {
+                    res.redirect(302, `${server}`)
+                }
+                else {
+                    res.status(200).json(paste)
+                }
+
+            }
         }
         else {
             res.status(404).send("bruh you fucking stupid or something?")
