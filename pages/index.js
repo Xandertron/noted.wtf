@@ -1,20 +1,20 @@
+//<p align="right" style={{ margin: "0px", display: "inline", float: "right" }}><a href="/stats">Stats</a></p>
 export default function HomePage() {
     return (
         <div>
             noted.wtf
-            <p align="right" style={{ margin: "0px", display: "inline", float: "right" }}><a href="/stats">Stats</a></p>
             <hr />
 
             <form action="api/paste" method="post">
                 <textarea id="content" name="content" rows="20" minlength="5" required placeholder="--put paste contents here" />
                 <br />
-                <label htmlFor="expires">Enter the amount of hours until the paste expires<br /> (max 168 hours / one week)</label>
+                <label htmlFor="expires">Enter the amount of hours until the paste expires<br /> (maximum of 720 hours / 30 days)</label>
                 <input
                     type="number"
                     id="expires"
                     name="expires"
                     min="0.0083"
-                    max="168"
+                    max="720"
                     step="any"
                     defaultValue="3"
                     required

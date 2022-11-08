@@ -1,5 +1,5 @@
 import '../public/dark.min.css'
-import '../public/a11y-dark.min.css'
+import '../public/github-dark.css'
 //import { GoogleAnalytics } from "nextjs-google-analytics";
 import Head from "next/head"
 // This default export is required in a new `pages/_app.js` file.
