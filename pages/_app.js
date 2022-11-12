@@ -15,7 +15,6 @@ export default function App({ Component, pageProps }) {
         <meta name="msapplication-TileColor" content="#da532c" />
 
         <meta name="theme-color" content="#ffffff" />
-        <meta name="description" content="noted, but wtf" />
 
         <meta property="og:url" content="https://noted.wtf" />
         <meta property="og:type" content="website" />
