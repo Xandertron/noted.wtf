@@ -4,6 +4,8 @@ export default function HomePage() {
     return (
         <><Head>
             <title>noted.wtf</title>
+            <meta property="og:title" content="noted.wtf" />
+            <meta name="twitter:title" content="noted.wtf" />
             <meta name="description" content="ok, noted, but wtf" />
             <meta property="og:description" content="ok, noted, but wtf" />
         </Head><div>

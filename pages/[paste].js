@@ -7,11 +7,13 @@ import { db } from '../prisma/server.js'
 
 export default function Paste({ paste }) {
     let html = hljs.highlightAuto(paste.content).value
-    let disc = (paste.content.length > 80) ? "\""+paste.content.substring(0, 77)+"...\"" : "\""+paste.content+"\""
+    let disc = (paste.content.length > 80) ? "\"" + paste.content.substring(0, 77) + "...\"" : "\"" + paste.content + "\""
     return (
         <>
             <Head>
                 <title>noted.wtf | {paste.id}</title>
+                <meta property="og:title" content={"noted.wtf | "+paste.id} />
+                <meta name="twitter:title" content={"noted.wtf | "+paste.id} />
                 <meta name="description" content={disc} />
                 <meta property="og:description" content={disc} />
             </Head>
