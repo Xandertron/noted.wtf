@@ -7,7 +7,6 @@ export default function App({ Component, pageProps }) {
   return (
     <>
       <Head>
-        <title>noted.wtf</title>
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
@@ -21,7 +20,6 @@ export default function App({ Component, pageProps }) {
         <meta property="og:url" content="https://noted.wtf" />
         <meta property="og:type" content="website" />
         <meta property="og:title" content="noted.wtf" />
-        <meta property="og:description" content="noted, but wtf" />
         <meta property="og:image" content="https://noted.wtf/siteimage.png" />
 
         <meta name="twitter:card" content="summary_large_image" />

@@ -1,29 +1,32 @@
 //<p align="right" style={{ margin: "0px", display: "inline", float: "right" }}><a href="/stats">Stats</a></p>
+import Head from "next/head"
 export default function HomePage() {
     return (
-        <div>
-            noted.wtf
-            <hr />
+        <><Head>
+            <title>noted.wtf</title>
+            <meta property="og:description" content="ok, noted, but wtf" />
+        </Head><div>
+                noted.wtf
+                <hr />
 
-            <form action="api/paste" method="post">
-                <textarea id="content" name="content" rows="20" minLength="5" required placeholder="--put paste contents here" />
-                <br />
-                <label htmlFor="expires">Enter the amount of hours until the paste expires<br /> (maximum of 720 hours / 30 days)</label>
-                <input
-                    type="number"
-                    id="expires"
-                    name="expires"
-                    min="0.0083"
-                    max="720"
-                    step="any"
-                    defaultValue="3"
-                    required
-                />
-                paste password will be implemented soon(tm)
-                <br />
-                <button type="submit">Submit</button>
-            </form>
-        </div>
+                <form action="api/paste" method="post">
+                    <textarea id="content" name="content" rows="20" minLength="5" required placeholder="--put paste contents here" />
+                    <br />
+                    <label htmlFor="expires">Enter the amount of hours until the paste expires<br /> (maximum of 720 hours / 30 days)</label>
+                    <input
+                        type="number"
+                        id="expires"
+                        name="expires"
+                        min="0.0083"
+                        max="720"
+                        step="any"
+                        defaultValue="3"
+                        required />
+                    paste password will be implemented soon(tm)
+                    <br />
+                    <button type="submit">Submit</button>
+                </form>
+            </div></>
     )
 }
 

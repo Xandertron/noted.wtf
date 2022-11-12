@@ -1,16 +1,18 @@
 import Script from 'next/script'
+import Head from "next/head"
 const hljs = require('highlight.js')
 const xss = require("xss")
 import { server } from '../config'
 import { db } from '../prisma/server.js'
 
 export default function Paste({ paste }) {
-    if (paste.content === undefined) {
-        paste = { content: "404, Paste not found!\nEither an error occured or the paste does not exist" }
-    }
     let html = hljs.highlightAuto(paste.content).value
     return (
         <>
+            <Head>
+                <title>noted.wtf | {paste.id}</title>
+                <meta property="og:description" content={(paste.content.length > 80) ? "\""+paste.content.substring(0, 77)+"...\"" : "\""+paste.content+"\""} />
+            </Head>
             <br />
             <a href={server}><b>noted.wtf</b></a>
             <p align="right" style={{ margin: "0px", display: "inline", float: "right" }}>
