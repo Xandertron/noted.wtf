@@ -38,7 +38,8 @@ export default function Paste({ paste }) {
 
 export async function getServerSideProps(req) {
     console.log(req.resolvedUrl)
-    let lang = req.req.headers["accept-language"].split(",")
+    let acclang = req.req.headers["accept-language"] || "en-US"
+    let lang = acclang.split(",")
     let locale = lang[0] || "en-US"
     const paste = await db.paste.findUnique({
         where: {

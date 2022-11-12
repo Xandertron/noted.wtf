@@ -6,7 +6,7 @@ export default function HomePage() {
             <hr />
 
             <form action="api/paste" method="post">
-                <textarea id="content" name="content" rows="20" minlength="5" required placeholder="--put paste contents here" />
+                <textarea id="content" name="content" rows="20" minLength="5" required placeholder="--put paste contents here" />
                 <br />
                 <label htmlFor="expires">Enter the amount of hours until the paste expires<br /> (maximum of 720 hours / 30 days)</label>
                 <input

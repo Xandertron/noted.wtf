@@ -4,3 +4,5 @@
 .env.local
 /prisma/noted.db
 /prisma/migrations/*
+# Sentry
+.sentryclirc
