@@ -16,6 +16,7 @@ export default function Paste({ paste }) {
                 <meta name="twitter:title" content={"noted.wtf | "+paste.id} />
                 <meta name="description" content={disc} />
                 <meta property="og:description" content={disc} />
+                <meta name="twitter:description" content={disc} />
             </Head>
             <br />
             <a href={server}><b>noted.wtf</b></a>
