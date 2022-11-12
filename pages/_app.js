@@ -15,14 +15,17 @@ export default function App({ Component, pageProps }) {
         <meta name="msapplication-TileColor" content="#da532c" />
 
         <meta name="theme-color" content="#ffffff" />
+        <meta name="description" content="ok, noted, but wtf" />
 
         <meta property="og:url" content="https://noted.wtf" />
         <meta property="og:type" content="website" />
+        <meta property="og:description" content="ok, noted, but wtf" />
         <meta property="og:image" content="https://noted.wtf/siteimage.png" />
 
         <meta name="twitter:card" content="summary_large_image" />
         <meta property="twitter:domain" content="noted.wtf" />
         <meta property="twitter:url" content="https://noted.wtf" />
+        <meta name="twitter:description" content="ok, noted, but wtf" />
         <meta name="twitter:image" content="https://noted.wtf/siteimage.png" />
 
       </Head>

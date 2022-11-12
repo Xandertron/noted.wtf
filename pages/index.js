@@ -6,9 +6,6 @@ export default function HomePage() {
             <title>noted.wtf</title>
             <meta property="og:title" content="noted.wtf" />
             <meta name="twitter:title" content="noted.wtf" />
-            <meta name="description" content="ok, noted, but wtf" />
-            <meta property="og:description" content="ok, noted, but wtf" />
-            <meta name="twitter:description" content="ok, noted, but wtf" />
         </Head><div>
                 noted.wtf
                 <hr />
