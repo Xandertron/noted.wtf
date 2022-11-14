@@ -32,7 +32,7 @@ export default async function handler(req, res) {
             let id = crypto.randomBytes(4).toString("base64url")
             let modkey = crypto.randomBytes(10).toString("base64url")
             if (req.body.content.length >= 5) {
-                const newPaste = await db.paste.create({
+                const paste = await db.paste.create({
                     data: {
                         id: id,
                         expiresAt: new Date(Date.now() + clamp(req.body.expires, 0.0083, 720) * 60 * 60 * 1000),
@@ -54,31 +54,56 @@ export default async function handler(req, res) {
         }
         else if (req.method === "GET") {
             try {
-                const paste = await db.paste.findUnique({
-                    where: {
-                        id: req.query.id
+                if (req.query.method === undefined) {
+                    const paste = await db.paste.findUnique({
+                        where: {
+                            id: req.query.id
+                        }
+                    })
+                    console.log(paste)
+                    if (paste === null) {
+                        res.status(404).json({ error: "invalid or expired paste" })
                     }
-                })
-                console.log(paste)
-                if (paste === null) {
-                    res.status(404).json({ error: "invalid or expired paste" })
-                }
-                else if (Date.now() > paste.expiresAt) {
-                    res.status(404).json({ error: "invalid or expired paste" })
-                }
-                else if (req.query.raw == "true") {
-                    res.setHeader('Content-Type', 'text/plain')
-                    res.status(200).send(paste.content)
+                    else if (Date.now() > paste.expiresAt) {
+                        res.status(404).json({ error: "invalid or expired paste" })
+                    }
+                    else if (req.query.raw == "true") {
+                        res.setHeader('Content-Type', 'text/plain')
+                        res.status(200).send(paste.content)
+                    }
+                    else {
+                        res.status(200).json({
+                            content: paste.content,
+                            created: paste.createdAt,
+                            expires: paste.expiresAt,
+                            id: paste.id
+                        })
+                    }
                 }
                 else {
-                    res.status(200).json({
-                        content: paste.content,
-                        created: paste.createdAt,
-                        expires: paste.expiresAt,
-                        id: paste.id
-                    })
+                    if (req.query.method === "post") {
+                        let id = crypto.randomBytes(4).toString("base64url")
+                        let modkey = crypto.randomBytes(10).toString("base64url")
+                        if (req.query.content.length >= 5) {
+                            const paste = await db.paste.create({
+                                data: {
+                                    id: id,
+                                    expiresAt: new Date(Date.now() + clamp(req.query.expires || 3, 0.0083, 720) * 60 * 60 * 1000),
+                                    content: req.query.content,
+                                    modifyKey: modkey
+                                }
+                            })
+                            log.send(`new paste created!\n${server}/${id}`)
+                            res.status(200).json(paste)
+                        }
+                        else {
+                            res.status(400).json({ error: "content length must be more than 5 characters" })
+                        }
+                    }
+                    else {
+                        res.status(400).json({ error: "wrong usage dummy" })
+                    }
                 }
-
             }
             catch (err) {
                 res.status(500).end()

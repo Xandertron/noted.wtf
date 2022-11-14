@@ -7,13 +7,13 @@ import { db } from '../prisma/server.js'
 
 export default function Paste({ paste }) {
     let html = hljs.highlightAuto(paste.content).value
-    let disc = encodeURIComponent((paste.content.length > 80) ? paste.content.substring(0, 77) + "..." : paste.content)
+    let title = "noted.wtf | "+paste.id
     return (
         <>
             <Head>
-                <title>noted.wtf | {paste.id}</title>
-                <meta property="og:title" content={"noted.wtf | "+paste.id} />
-                <meta name="twitter:title" content={"noted.wtf | "+paste.id} />
+                <title>{title}</title>
+                <meta property="og:title" content={"noted.wtf | " + paste.id} />
+                <meta name="twitter:title" content={"noted.wtf | " + paste.id} />
             </Head>
             <br />
             <a href={server}><b>noted.wtf</b></a>
@@ -30,12 +30,42 @@ export default function Paste({ paste }) {
             <pre>
                 <code id="code" dangerouslySetInnerHTML={{ __html: html }} />
             </pre>
+
+            <input style={{ display: "inline" }} id="password" type="text" placeholder="p@s5w0rd!" />
+            <button style={{ display: "inline" }} id="decrypt" type="button">Decrypt</button>
+            <input type="hidden" id="rawcontent" defaultValue={paste.content} />
+
             <form action="api/paste" method="post">
-                <button style={{ display: "inline" }} type="submit">Delete</button>
                 <input style={{ display: "inline" }} type="text" id="modifykey" name="modifykey" placeholder="paste key" defaultValue={paste.modifyKey} />
+                <button style={{ display: "inline" }} type="submit">Delete</button>
                 <input type="hidden" id="pasteID" name="pasteID" defaultValue={paste.id} />
                 <input type="hidden" id="method" name="method" defaultValue="delete" />
             </form>
+            <Script src="./triplesec-min.js" />
+            <Script src="./xss.js" />
+            <Script
+                id="decryptpaste"
+                dangerouslySetInnerHTML={{
+                    __html: `
+                        document.getElementById('decrypt').onclick = function(){
+                            document.getElementById('decrypt').disabled = true
+                            triplesec.decrypt ({
+                                data: new triplesec.Buffer(document.getElementById('rawcontent').value, "hex"),
+                                key: new triplesec.Buffer(document.getElementById('password').value),
+                            }, function(err, buff) {
+                                if (! err) { 
+                                    document.getElementById('code').innerHTML = filterXSS(buff.toString())
+                                    hljs.highlightAll()
+                                }
+                                else{
+                                    alert(err)
+                                    document.getElementById('decrypt').disabled = false
+                                }
+                            });
+                        }`
+                }}
+            />
+            <Script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js" />
         </>
     )
 }
