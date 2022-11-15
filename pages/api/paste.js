@@ -1,5 +1,6 @@
 import { server } from '../../config'
 const crypto = require("crypto")
+var parse = require('parse-duration')
 import { db } from '../../prisma/server.js'
 //content: "Hi, welcome to noted.wtf\n\nCredits:\nhttps://github.com/kognise/water.css\nhighlight.js\nnext.js"
 
@@ -7,7 +8,6 @@ const { WebhookClient } = require("discord.js")
 const log = new WebhookClient({ url: "https://discord.com/api/webhooks/1038121597074145310/yARH_7qWrLTy73ZG3oi-Ns4y9mc2QAL50mYqrlpRYPOMA5xOqxxFELwN3VOADvtqT8_B" });
 
 const clamp = (num, min, max) => Math.min(Math.max(num, min), max)
-
 export default async function handler(req, res) {
     try {
         if (req.method === "POST") {
@@ -28,6 +28,9 @@ export default async function handler(req, res) {
                     })
                     res.redirect(302, `${server}`)
                 }
+                else {
+                    res.status(401).json({ error: "invalid paste key, please go back using your browser's back button" })
+                }
             }
             let id = crypto.randomBytes(4).toString("base64url")
             let modkey = crypto.randomBytes(10).toString("base64url")
@@ -35,7 +38,7 @@ export default async function handler(req, res) {
                 const paste = await db.paste.create({
                     data: {
                         id: id,
-                        expiresAt: new Date(Date.now() + clamp(req.body.expires, 0.0083, 720) * 60 * 60 * 1000),
+                        expiresAt: new Date(Date.now() + clamp(parse(req.body.expires), 30000, 2592000000)),
                         content: req.body.content,
                         modifyKey: modkey
                     }

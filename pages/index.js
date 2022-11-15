@@ -14,18 +14,16 @@ export default function HomePage() {
                 <form action="api/paste" method="post">
                     <textarea id="content" name="content" rows="20" minLength="5" required placeholder="--put paste contents here" />
                     <br />
-                    <label htmlFor="expires">Enter the amount of hours until the paste expires<br /> (maximum of 720 hours / 30 days)</label>
+                    <label htmlFor="expires">Enter the amount of time until the paste expires following the format of 0d 0h 0m 0s<br /> (maximum of 720 hours / 30 days)</label>
                     <input
-                        type="number"
+                        type="string"
                         id="expires"
                         name="expires"
-                        min="0.0083"
-                        max="720"
-                        step="any"
-                        defaultValue="3"
+                        defaultValue="3h 0m"
+                        placeholder="29d10h2m49s"
                         required />
                     <br />
-                    <label htmlFor="name">(optional) Enter a password and click the button to encrypt the contents above. Requires Javascript.<br/>Make sure to save it somewhere!</label>
+                    <label htmlFor="name">(optional) Enter a password and click the button to encrypt the contents above. Requires Javascript.<br />Make sure to save it somewhere!</label>
                     <br />
                     <input style={{ display: "inline" }} type="text" id="password" name="password" placeholder="p@s5w0rd!" pattern="^[A-Za-z0-9!@#$%^&*()]+$" title="Your password may only contain letters A to Z, numbers 0 to 9, or characters !@#$%^&*()" />
                     <button style={{ display: "inline" }} id="encrypt" type="button">Encrypt</button>
@@ -55,7 +53,6 @@ export default function HomePage() {
             </div></>
     )
 }
-
 //<label htmlFor="name">Enter a password to make it a private paste, or leave it blank to make it public</label>
 //<input type="text" id="password" name="password" placeholder="p@s5w0rd!" pattern="^[A-Za-z0-9!@#$%^&*()]+$" title="Your password may only contain letters A to Z, numbers 0 to 9, or characters !@#$%^&*()"/>
 //<br/>
