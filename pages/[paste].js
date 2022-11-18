@@ -35,7 +35,7 @@ export default function Paste({ paste }) {
             <button style={{ display: "inline" }} id="decrypt" type="button">Decrypt</button>
             <input type="hidden" id="rawcontent" defaultValue={paste.content} />
 
-            <form action="api/paste" method="post">
+            <form action="api/form" method="post">
                 <input style={{ display: "inline" }} type="text" id="modifykey" name="modifykey" placeholder="paste key" defaultValue={paste.modifyKey} />
                 <button style={{ display: "inline" }} type="submit">Delete</button>
                 <input type="hidden" id="pasteID" name="pasteID" defaultValue={paste.id} />

@@ -11,7 +11,7 @@ export default function HomePage() {
                 noted.wtf
                 <hr />
 
-                <form action="api/paste" method="post">
+                <form action="api/form" method="post">
                     <textarea id="content" name="content" rows="20" minLength="5" required placeholder="--put paste contents here" />
                     <br />
                     <label htmlFor="expires">Enter the amount of time until the paste expires following the format of 0d 0h 0m 0s<br /> (maximum of 720 hours / 30 days)</label>
