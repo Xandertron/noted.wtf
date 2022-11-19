@@ -11,9 +11,9 @@ const clamp = (num, min, max) => Math.min(Math.max(num, min), max)
 export default async function handler(req, res) {
     try {
         if (req.method === "POST") {
-            let id = crypto.randomBytes(4).toString("base64url")
-            let modkey = crypto.randomBytes(10).toString("base64url")
             if (req.body.content.length >= 5) {
+                let id = crypto.randomBytes(4).toString("base64url")
+                let modkey = crypto.randomBytes(10).toString("base64url")
                 const paste = await db.paste.create({
                     data: {
                         id: id,

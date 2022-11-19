@@ -1,13 +1,15 @@
 import Script from 'next/script'
 import Head from "next/head"
-const hljs = require('highlight.js')
+const minhljs = require("../lib/highlight.min.js")
+//const hljs = require('highlight.js')
 const xss = require("xss")
 import { server } from '../config'
 import { db } from '../prisma/server.js'
 
 export default function Paste({ paste }) {
-    let html = hljs.highlightAuto(paste.content).value
-    let title = "noted.wtf | "+paste.id
+    let highlight = minhljs.highlightAuto(paste.content)
+    let html = highlight.value
+    let title = "noted.wtf | " + paste.id
     return (
         <>
             <Head>
@@ -31,8 +33,13 @@ export default function Paste({ paste }) {
                 <code id="code" dangerouslySetInnerHTML={{ __html: html }} />
             </pre>
 
+            <select name="language" id="language" defaultValue={highlight.language}>
+                    {minhljs.listLanguages().sort().map((language) => (<option value={language}>{language}</option>))}
+            </select>
+
             <input style={{ display: "inline" }} id="password" type="text" placeholder="p@s5w0rd!" />
             <button style={{ display: "inline" }} id="decrypt" type="button">Decrypt</button>
+
             <input type="hidden" id="rawcontent" defaultValue={paste.content} />
 
             <form action="api/form" method="post">
@@ -41,8 +48,18 @@ export default function Paste({ paste }) {
                 <input type="hidden" id="pasteID" name="pasteID" defaultValue={paste.id} />
                 <input type="hidden" id="method" name="method" defaultValue="delete" />
             </form>
+            <Script src="./highlight.js" />
             <Script src="./triplesec-min.js" />
             <Script src="./xss.js" />
+            <Script
+                id="langselector"
+                dangerouslySetInnerHTML={{
+                    __html: `
+                        document.getElementById('language').onchange = function(a){
+                            document.getElementById('code').innerHTML = hljs.highlight(document.getElementById('rawcontent').value, {language: document.getElementById('language').value}).value
+                        }`
+                }}
+            />
             <Script
                 id="decryptpaste"
                 dangerouslySetInnerHTML={{
@@ -65,7 +82,6 @@ export default function Paste({ paste }) {
                         }`
                 }}
             />
-            <Script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js" />
         </>
     )
 }
