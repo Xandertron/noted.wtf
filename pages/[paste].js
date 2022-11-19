@@ -1,6 +1,6 @@
 import Script from 'next/script'
 import Head from "next/head"
-const minhljs = require("../lib/highlight.min.js")
+const minhljs = require("../public/highlight.min.js")
 //const hljs = require('highlight.js')
 const xss = require("xss")
 import { server } from '../config'
@@ -48,8 +48,8 @@ export default function Paste({ paste }) {
                 <input type="hidden" id="pasteID" name="pasteID" defaultValue={paste.id} />
                 <input type="hidden" id="method" name="method" defaultValue="delete" />
             </form>
-            <Script src="./highlight.js" />
-            <Script src="./triplesec-min.js" />
+            <Script src="./highlight.min.js" />
+            <Script src="./triplesec.min.js" />
             <Script src="./xss.js" />
             <Script
                 id="langselector"
