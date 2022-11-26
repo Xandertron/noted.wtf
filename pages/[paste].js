@@ -17,7 +17,6 @@ export default function Paste({ paste }) {
                 <meta property="og:title" content={"noted.wtf - " + paste.id} />
                 <meta name="twitter:title" content={"noted.wtf - " + paste.id} />
             </Head>
-            <br />
             <a href={server}><b>↩ noted.wtf</b></a>
             <p align="right" style={{ margin: "0px", display: "inline", float: "right" }}>
                 <a href={`${server}/raw/${paste.id}`}><b>raw</b> </a>

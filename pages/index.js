@@ -8,7 +8,7 @@ export default function HomePage() {
             <meta property="og:title" content="noted.wtf" />
             <meta name="twitter:title" content="noted.wtf" />
         </Head><div>
-                <b>noted.wtf</b>
+                <b>🏠 noted.wtf</b>
                 <p align="right" style={{ margin: "0px", display: "inline", float: "right" }}>
                     <a href={`/recent`}><b>recent pastes</b> </a>
                 </p>

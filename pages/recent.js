@@ -9,7 +9,7 @@ export default function Recent({ recent, none }) {
                 <meta property="og:title" content="noted.wtf - recent" />
                 <meta name="twitter:title" content="noted.wtf - recent" />
             </Head><div>
-                    <a href="/"><b>noted.wtf</b></a>
+                    <a href="/"><b>↩ noted.wtf</b></a>
                     <hr />
                     there are no recent pastes, please try again later
                 </div></>
