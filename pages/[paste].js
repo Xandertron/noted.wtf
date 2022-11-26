@@ -24,7 +24,6 @@ export default function Paste({ paste }) {
                 <a href={`${server}/${paste.id}`}> <b>share {(paste.modifyKey.length > 10) ? "without key" : ""}</b></a>
             </p>
             <hr />
-            <br />
             Created: {paste.created}<br />
             Expires on: {paste.expires}<br />
             Views: {paste.views}
