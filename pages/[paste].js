@@ -34,7 +34,7 @@ export default function Paste({ paste }) {
             </pre>
 
             <select name="language" id="language" defaultValue={highlight.language}>
-                    {minhljs.listLanguages().sort().map((language) => (<option value={language}>{language}</option>))}
+                {minhljs.listLanguages().sort().map((language) => (<option value={language}>{language}</option>))}
             </select>
 
             <input style={{ display: "inline" }} id="password" type="text" placeholder="p@s5w0rd!" />
@@ -52,18 +52,13 @@ export default function Paste({ paste }) {
             <Script src="./triplesec.min.js" />
             <Script src="./xss.js" />
             <Script
-                id="langselector"
+                id="script"
                 dangerouslySetInnerHTML={{
                     __html: `
+                        history.replaceState({},"",window.location.pathname)
                         document.getElementById('language').onchange = function(a){
                             document.getElementById('code').innerHTML = hljs.highlight(document.getElementById('rawcontent').value, {language: document.getElementById('language').value}).value
-                        }`
-                }}
-            />
-            <Script
-                id="decryptpaste"
-                dangerouslySetInnerHTML={{
-                    __html: `
+                        }
                         document.getElementById('decrypt').onclick = function(){
                             document.getElementById('decrypt').disabled = true
                             triplesec.decrypt ({
