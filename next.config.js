@@ -17,6 +17,14 @@ const moduleExports = {
     // for more information.
     hideSourceMaps: true,
   },
+  async rewrites() {
+    return [
+      {
+        source: '/raw/:id',
+        destination: '/api/paste?id=:id&raw=true', // The :path parameter is used here so will not be automatically passed in the query
+      },
+    ]
+  }
 };
 
 const sentryWebpackPluginOptions = {

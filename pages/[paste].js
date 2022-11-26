@@ -9,18 +9,18 @@ import { db } from '../prisma/server.js'
 export default function Paste({ paste }) {
     let highlight = minhljs.highlightAuto(paste.content)
     let html = highlight.value
-    let title = "noted.wtf | " + paste.id
+    let title = "noted.wtf - " + paste.id
     return (
         <>
             <Head>
                 <title>{title}</title>
-                <meta property="og:title" content={"noted.wtf | " + paste.id} />
-                <meta name="twitter:title" content={"noted.wtf | " + paste.id} />
+                <meta property="og:title" content={"noted.wtf - " + paste.id} />
+                <meta name="twitter:title" content={"noted.wtf - " + paste.id} />
             </Head>
             <br />
-            <a href={server}><b>noted.wtf</b></a>
+            <a href={server}><b>↩ noted.wtf</b></a>
             <p align="right" style={{ margin: "0px", display: "inline", float: "right" }}>
-                <a href={`${server}/api/paste?id=${paste.id}&raw=true`}><b>raw</b> </a>
+                <a href={`${server}/raw/${paste.id}`}><b>raw</b> </a>
                 |
                 <a href={`${server}/${paste.id}`}> <b>share {(paste.modifyKey.length > 10) ? "without key" : ""}</b></a>
             </p>

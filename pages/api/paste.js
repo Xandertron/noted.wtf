@@ -6,7 +6,6 @@ import { db } from '../../prisma/server.js'
 
 const { WebhookClient } = require("discord.js")
 const log = new WebhookClient({ url: "https://discord.com/api/webhooks/1038121597074145310/yARH_7qWrLTy73ZG3oi-Ns4y9mc2QAL50mYqrlpRYPOMA5xOqxxFELwN3VOADvtqT8_B" });
-
 const clamp = (num, min, max) => Math.min(Math.max(num, min), max)
 export default async function handler(req, res) {
     try {
@@ -14,10 +13,11 @@ export default async function handler(req, res) {
             if (req.body.content.length >= 5) {
                 let id = crypto.randomBytes(4).toString("base64url")
                 let modkey = crypto.randomBytes(10).toString("base64url")
+                let expires = new Date(Date.now() + clamp(parse(req.body.expires), 30000, 2592000000))
                 const paste = await db.paste.create({
                     data: {
                         id: id,
-                        expiresAt: new Date(Date.now() + clamp(parse(req.body.expires), 30000, 2592000000)),
+                        expiresAt: expires,
                         content: req.body.content,
                         modifyKey: modkey
                     }
@@ -62,10 +62,11 @@ export default async function handler(req, res) {
                         let id = crypto.randomBytes(4).toString("base64url")
                         let modkey = crypto.randomBytes(10).toString("base64url")
                         if (req.query.content.length >= 5) {
+                            let expires = new Date(Date.now() + clamp(req.query.expires || 3, 0.0083, 720) * 60 * 60 * 1000)
                             const paste = await db.paste.create({
                                 data: {
                                     id: id,
-                                    expiresAt: new Date(Date.now() + clamp(req.query.expires || 3, 0.0083, 720) * 60 * 60 * 1000),
+                                    expiresAt: expires,
                                     content: req.query.content,
                                     modifyKey: modkey
                                 }

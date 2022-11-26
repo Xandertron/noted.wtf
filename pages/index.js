@@ -8,7 +8,10 @@ export default function HomePage() {
             <meta property="og:title" content="noted.wtf" />
             <meta name="twitter:title" content="noted.wtf" />
         </Head><div>
-                noted.wtf
+                <b>noted.wtf</b>
+                <p align="right" style={{ margin: "0px", display: "inline", float: "right" }}>
+                    <a href={`/recent`}><b>recent pastes</b> </a>
+                </p>
                 <hr />
 
                 <form action="api/form" method="post">
@@ -28,6 +31,9 @@ export default function HomePage() {
                     <input style={{ display: "inline" }} type="text" id="password" name="password" placeholder="p@s5w0rd!" pattern="^[A-Za-z0-9!@#$%^&*()]+$" title="Your password may only contain letters A to Z, numbers 0 to 9, or characters !@#$%^&*()" />
                     <button style={{ display: "inline" }} id="encrypt" type="button">Encrypt</button>
                     <br /><br />
+                    <input type="checkbox" name="public" defaultChecked />
+                    <label for="public">Listed on <a href={`/recent`} target="child"><b>recents</b></a>?</label>
+                    <br/>
                     <button type="submit">Submit</button>
                 </form>
                 <Script src="./triplesec-min.js" />
