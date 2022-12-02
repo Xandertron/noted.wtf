@@ -5,7 +5,6 @@ const minhljs = require("../public/highlight.min.js")
 const xss = require("xss")
 import { server } from '../config'
 import { db } from '../prisma/server.js'
-
 export default function Paste({ paste }) {
     let highlight = minhljs.highlightAuto(paste.content)
     let html = highlight.value
@@ -32,7 +31,7 @@ export default function Paste({ paste }) {
             </pre>
 
             <select name="language" id="language" defaultValue={highlight.language}>
-                {minhljs.listLanguages().sort().map((language) => (<option value={language}>{language}</option>))}
+                {minhljs.listLanguages().sort().map((language) => (<option value={language} key={language}>{language}</option>))}
             </select>
 
             <input style={{ display: "inline" }} id="password" type="text" placeholder="p@s5w0rd!" />
@@ -89,7 +88,6 @@ export async function getServerSideProps(req) {
             id: req.query.paste
         }
     })
-    console.log(paste)
     if (paste === null) {
         return {
             notFound: true,

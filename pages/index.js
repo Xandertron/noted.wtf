@@ -10,7 +10,7 @@ export default function HomePage() {
         </Head><div>
                 <b>🏠 noted.wtf</b>
                 <p align="right" style={{ margin: "0px", display: "inline", float: "right" }}>
-                    <a href={`/recent`}><b>recent pastes</b> </a>
+                    <a href={`/docs`}><b>api</b></a> | <a href={`/recent`}><b>recent pastes</b></a>
                 </p>
                 <hr />
 
@@ -26,17 +26,21 @@ export default function HomePage() {
                         placeholder="29d10h2m49s"
                         required />
                     <br />
+                    <label htmlFor="title">Enter a title for the paste, or leave it blank for random</label>
+                    <br/>
+                    <input style={{ display: "inline" }} type="text" id="title" name="title" placeholder="my_passwords" pattern="^[A-Za-z0-9_-]+$" maxLength="24" title="Title may only contain letters A to Z, numbers 0 to 9, or characters: _-" />
+                    <br /><br/>
                     <label htmlFor="name">(optional) Enter a password and click the button to encrypt the contents above. Requires Javascript.<br />Make sure to save it somewhere!</label>
                     <br />
-                    <input style={{ display: "inline" }} type="text" id="password" name="password" placeholder="p@s5w0rd!" pattern="^[A-Za-z0-9!@#$%^&*()]+$" title="Your password may only contain letters A to Z, numbers 0 to 9, or characters !@#$%^&*()" />
+                    <input style={{ display: "inline" }} type="text" id="password" name="password" placeholder="p@s5w0rd!" />
                     <button style={{ display: "inline" }} id="encrypt" type="button">Encrypt</button>
                     <br /><br />
                     <input type="checkbox" name="public" defaultChecked />
-                    <label for="public">Listed on <a href={`/recent`} target="child"><b>recents</b></a>?</label>
-                    <br/>
+                    <label htmlFor="public">Publicly listed on <a href={`/recent`} target="child"><b>recents</b></a></label>
+                    <br />
                     <button type="submit">Submit</button>
                 </form>
-                <Script src="./triplesec-min.js" />
+                <Script src="./triplesec.min.js" />
                 <Script
                     id="encryptpaste"
                     dangerouslySetInnerHTML={{
